@@ -1,0 +1,24 @@
+/* По умолчанию показываем мобильную версию */
+.customer-reviews-mobile {
+    display: block;
+  }
+  
+  /* Скрываем десктопную версию на мобильных устройствах */
+  .customer-reviews-desktop {
+    display: none;
+  }
+  
+  /* CSS-медиазапросы */
+  @media (min-width: 768px) {
+    /* Скрываем мобильную версию на десктопе */
+    .customer-reviews-mobile {
+      display: none;
+    }
+  
+    /* Показываем десктопную версию на десктопе */
+    .customer-reviews-desktop {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  

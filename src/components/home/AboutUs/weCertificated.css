@@ -1,0 +1,8 @@
+@media (max-width:766px) {
+    .direct{
+        flex-direction: column-reverse;
+    }
+    .certif{
+        width: 100% !important;
+    }
+}

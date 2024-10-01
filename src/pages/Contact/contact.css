@@ -1,0 +1,18 @@
+
+  .btn {
+    display: inline-block;
+    font-size: 14px;
+    font-family: sans-serif;
+    text-decoration: none;
+    color: #333;
+    border-top: 2px solid #333;
+    border-bottom: 2px solid #333;
+    padding: 5px;
+    letter-spacing: 2px;
+    transition: all 0.25s;
+  }
+  
+  .btn:hover {
+    letter-spacing: 10px;
+  }
+  

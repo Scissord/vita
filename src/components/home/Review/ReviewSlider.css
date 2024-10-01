@@ -1,0 +1,53 @@
+/* ReviewSlider.css */
+
+/* Стили для стрелок слайдера */
+.slick-prev,
+.slick-next {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  transform: translateY(-50%);
+}
+
+.slick-prev {
+  left: 1px; /* или нужное вам расстояние от края */
+}
+
+.slick-next {
+  right: 1px; /* или нужное вам расстояние от края */
+}
+
+/* Убрать стандартные стили перед и после стрелок */
+.slick-prev:before,
+.slick-next:before {
+  content: none;
+}
+
+/* Стилизация точек (dots) */
+.slick-dots {
+  position: absolute;
+  
+  width: 100%;
+}
+
+.slick-dots li button:before {
+  /* Убираем стандартные номера точек */
+  font-size: 0;
+}
+
+.slick-dots li button {
+  /* Стилизация кнопок точек */
+  font-size: 0; /* Убрать стандартный текст кнопок (номера) */
+}
+
+.slick-dots li.slick-active button:before {
+  /* Стили для активной точки */
+  color: black;
+  opacity: 1;
+}
+
+/* По умолчанию точки будут белого цвета, измените при необходимости */
+.slick-dots li button:before {
+  color: white;
+  opacity: 0.75;
+}
