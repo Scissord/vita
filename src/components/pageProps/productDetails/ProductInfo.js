@@ -91,8 +91,6 @@ const addTocartPrice = currentPrice ;
     </>
   ) : null;
 
-  console.log(productInfo);
-
   return (
     <div className="flex flex-col gap-5">
     

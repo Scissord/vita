@@ -5,12 +5,39 @@ import InputMask from 'react-input-mask';
 
 const Payment = () => {
   const [fullName, setFullName] = useState("");
-  const [mobilePhone, setMobilePhone] = useState("");
+  const [mobilePhone, setMobilePhone] = useState('');
   const [streetAddress, setStreetAddress] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [additional9, setAdditional9] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false); // Состояние для отслеживания успешной отправки
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  const [phoneMask, setPhoneMask] = useState('+7 (999) 999 99 99');
+  const [phonePlaceholder, setPhonePlaceholder] = useState('+7 (___) ___ __ __');
+  const [country, setCountry] = useState('KZ');
+
+  const handleChangeCountry = (val) => {
+    setMobilePhone('')
+    setCountry(val);
+    switch (val) {
+      case 'KZ': // Казахстан
+        setPhoneMask('+7 (999) 999 99 99');
+        setPhonePlaceholder('+7 (___) ___ __ __');
+        break;
+      case 'KYR': // Кыргызстан
+        setPhoneMask('+996 (999) 999 999');
+        setPhonePlaceholder('+996 (___) ___ ___');
+        break;
+      case 'UZB': // Узбекистан
+        setPhoneMask('+998 (99) 999 9999');
+        setPhonePlaceholder('+998 (__) ___ ____');
+        break;
+      default:
+        setPhoneMask('+7 (999) 999 99 99');
+        setPhonePlaceholder('+7(___)___-__-__');
+        break;
+    }
+  };
 
   const discount = localStorage.getItem('discount');
   const products = useSelector((state) => state.orebiReducer.products);
@@ -28,9 +55,19 @@ const Payment = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // 18 - 1234
+    // 1 - 6568
+
     let apiUrl = `https://call-center1.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=18&token=1234`;
+    if(country === 'KYR') {
+      apiUrl = `https://callcenter-kyrgyzstan.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=18&token=1234`
+    }
     const domain = 'vita-balance.kz';
     const formData = new FormData();
+    let price = '1440';
+    if(country === 'KYR') {
+      price = '170'
+    };
 
     products.forEach((product, index) => {
       const price = parseFloat(product.price) + parseFloat(discount);
@@ -42,6 +79,7 @@ const Payment = () => {
     formData.append('additional9', additional9 ? 'KASPI-KREDIT' : '');
     formData.append('fio', fullName);
     formData.append('domain', domain);
+    formData.append('price', price);
     formData.append('phone', mobilePhone);
     formData.append('address', streetAddress);
     formData.append('city', selectedCity);
@@ -63,8 +101,6 @@ const Payment = () => {
     } catch (error) {
       console.error("Error occurred while placing the order:", error);
       setSubmitSuccess(true); // Устанавливаем состояние успешной отправки в true
-     
-      
     }
   };
 
@@ -75,7 +111,7 @@ const Payment = () => {
         <div className="container mx-auto p-8">
           <form id="divulgacion-form" className="max-w-md mx-auto" onSubmit={handleSubmit}>
             <div className=" grid-cols-2 gap-4">
-              <div>
+              <div className="mb-2">
                 <label htmlFor="nombre-completo" className="block mb-2 font-medium">Полное Имя:</label>
                 <input
                   type="text"
@@ -87,21 +123,34 @@ const Payment = () => {
                   required
                 />
               </div>
-              <div>
+              <div className="mb-2 relative">
                 <label htmlFor="correo-electronico" className="block mb-2 font-medium">Мобильный телефон:</label>
+                <select
+                  id="country"
+                  name="country"
+                  value={country}
+                  onChange={(e) => handleChangeCountry(e.target.value)}
+                  className="absolute max-w-xs top-10 left-1 py-1 px-1 bg-white"
+                  required
+                >
+                  <option value="KZ">{"\u{1F1F0}\u{1F1FF}"}</option>
+                  <option value="KYR">{"\u{1F1F0}\u{1F1EC}"}</option>
+                  <option value="UZB">{"\u{1F1FA}\u{1F1FF}"}</option>
+                </select>
                 <InputMask
-                  placeholder="+7(___)___-__-__"
-                  mask="+7 (999) 999 99 99"
+                  placeholder={phonePlaceholder}
+                  mask={phoneMask}
                   type="tel"
                   id="correo-electronico"
                   name="correo-electronico"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md pl-12"
                   value={mobilePhone}
                   onChange={(e) => setMobilePhone(e.target.value)}
                   required
+                  maskChar={null}
                 />
               </div>
-              <div>
+              <div className="mb-2">
                 <label htmlFor="telefono-movil" className="block mb-2 font-medium">Улица, дом, квартира</label>
                 <input
                   type="text"
@@ -114,7 +163,7 @@ const Payment = () => {
                 />
               </div>
               
-              <div>
+              <div className="mb-2">
                 <label htmlFor="pais" className="block mb-2 font-medium">Город:</label>
                 <select
                   id="pais"
@@ -125,35 +174,76 @@ const Payment = () => {
                   required
                 >
                   <option value="" disabled>Выберите город</option>
-                  <option value="ASTANA-KURER">Астана</option>
-                    <option value="ALMATA">Алматы</option>
-                    <option value="AKSAI">Аксай</option>
-                    <option value="AKTAU">Актау</option>
-                    <option value="AKTOBE">Актобе</option>
-                    <option value="ATYRAU">Атырау</option>
-                    <option value="KARAGANDA">Караганда</option>
-                    <option value="KOKSHETAU">Кокшетау</option>
-                    <option value="KOSTANAI">Костанай</option>
-                    <option value="KYLSARY">Кульсары</option>
-                    <option value="KYZYKORDA">Кызылорда</option>
-                    <option value="PAVLODAR">Павлодар</option>
-                    <option value="PETROPAVLOVSK">Петропавловск</option>
-                    <option value="Saryagash">Сарыагаш</option>
-                    <option value="SEMEI">Семей</option>
-                    <option value="SHIMKENT">Шымкент</option>
-                    <option value="TALDYKORGAN">Талдыкорган</option>
-                    <option value="TARAZ">Тараз</option>
-                    <option value="TEMIRTAU">Темиртау</option>
-                    <option value="TURKESTAN">Туркестан</option>
-                    <option value="URALSK">Уральск</option>
-                    <option value="UST-KAMENOGORSK">Усть-Каменогорск</option>
-                    <option value="ZHANAOZEN">Жанаозен</option>
-                    <option value="Zhetysai">Жетысай</option>
-                    <option value="ZHEZKAZGAN">Жезказган</option>
-                    <option value="EKIBASTUZ">Экибастуз</option>
-                    <option value="Balkhash">Балхаш</option>
-                    <option value="Kentau">Кентау</option>
-                    <option value="Other">Другой город</option>
+
+                  {/* kz */}
+                  {country === 'KZ' && (
+                    <>
+                      <option value="ASTANA-KURER">Астана</option>
+                      <option value="ALMATA">Алматы</option>
+                      <option value="AKSAI">Аксай</option>
+                      <option value="AKTAU">Актау</option>
+                      <option value="AKTOBE">Актобе</option>
+                      <option value="ATYRAU">Атырау</option>
+                      <option value="KARAGANDA">Караганда</option>
+                      <option value="KOKSHETAU">Кокшетау</option>
+                      <option value="KOSTANAI">Костанай</option>
+                      <option value="KYLSARY">Кульсары</option>
+                      <option value="KYZYKORDA">Кызылорда</option>
+                      <option value="PAVLODAR">Павлодар</option>
+                      <option value="PETROPAVLOVSK">Петропавловск</option>
+                      <option value="Saryagash">Сарыагаш</option>
+                      <option value="SEMEI">Семей</option>
+                      <option value="SHIMKENT">Шымкент</option>
+                      <option value="TALDYKORGAN">Талдыкорган</option>
+                      <option value="TARAZ">Тараз</option>
+                      <option value="TEMIRTAU">Темиртау</option>
+                      <option value="TURKESTAN">Туркестан</option>
+                      <option value="URALSK">Уральск</option>
+                      <option value="UST-KAMENOGORSK">Усть-Каменогорск</option>
+                      <option value="ZHANAOZEN">Жанаозен</option>
+                      <option value="Zhetysai">Жетысай</option>
+                      <option value="ZHEZKAZGAN">Жезказган</option>
+                      <option value="EKIBASTUZ">Экибастуз</option>
+                      <option value="Balkhash">Балхаш</option>
+                      <option value="Kentau">Кентау</option>
+                    </>
+                  )}
+
+                  {/* kyr */}
+                  {country === 'KYR' && (
+                    <>
+                      <option value="Bishkek">Бишкек</option>
+                      <option value="Osh">Ош</option>
+                      <option value="Dzhalal-Abad">Джалал-Абад</option>
+                      <option value="Karakol">Каракол</option>
+                      <option value="Kyzyl-kia">Кызыл-кия</option>
+                      <option value="Uzgen">Узген</option>
+                      <option value="Balykchi">Балыкчы</option>
+                      <option value="Kara-Balta">Кара-Балта</option>
+                      <option value="Naryn">Нарын</option>
+                      <option value="Talas">Талас</option>
+                    </>
+                  )}
+
+                  {/* uzb */}
+                  {country === 'UZB' && (
+                    <>
+                      <option value="Tashkent">Ташкент</option>
+                      <option value="Namangan">Наманган</option>
+                      <option value="Samarkand">Самарканд</option>
+                      <option value="Andijan">Андижан</option>
+                      <option value="Fergana">Фергана</option>
+                      <option value="Nukus">Нукус</option>
+                      <option value="Buhara">Бухара</option>
+                      <option value="Karshi">Карши</option>
+                      <option value="Nanoi">Навои</option>
+                      <option value="Margilan">Маргилан</option>
+                      <option value="Urgench">Ургенч</option>
+                    </>
+                  )}
+
+                  {/* other */}
+                  <option value="Other">Другой город</option>
                 </select>
               </div>
               

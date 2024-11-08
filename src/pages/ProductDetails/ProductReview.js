@@ -21,22 +21,46 @@ const ReviewForm = ({ onReviewSubmit }) => {
   const [name, setName] = useState('');
   const [mobilePhone, setMobilePhone] = useState('');
   const [content, setContent] = useState('');
+  const [phoneMask, setPhoneMask] = useState('+7 (999) 999 99 99');
+  const [phonePlaceholder, setPhonePlaceholder] = useState('+7 (___) ___ __ __');
+  const [country, setCountry] = useState('KZ');
+
+  const handleChangeCountry = (val) => {
+    setMobilePhone('')
+    setCountry(val);
+    switch (val) {
+      case 'KZ': // Казахстан
+        setPhoneMask('+7 (999) 999 99 99');
+        setPhonePlaceholder('+7 (___) ___ __ __');
+        break;
+      case 'KYR': // Кыргызстан
+        setPhoneMask('+996 (999) 999 999');
+        setPhonePlaceholder('+996 (___) ___ ___');
+        break;
+      case 'UZB': // Узбекистан
+        setPhoneMask('+998 (99) 999 9999');
+        setPhonePlaceholder('+998 (__) ___ ____');
+        break;
+      default:
+        setPhoneMask('+7 (999) 999 99 99');
+        setPhonePlaceholder('+7(___)___-__-__');
+        break;
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Создать объект нового отзыва
     const newReview = {
       name,
       mobilePhone,
       content,
-      date: 'только что', // Дата добавления отзыва
-      helpfulCount: 0, // Начальное количество "полезных" отзывов
+      date: 'только что',
+      helpfulCount: 0,
     };
-    // Очистить поля формы
+
     setName('');
     setMobilePhone('');
     setContent('');
-    // Передать новый отзыв в родительский компонент
     onReviewSubmit(newReview);
   };
 
@@ -48,18 +72,31 @@ const ReviewForm = ({ onReviewSubmit }) => {
           <label className="font-bold mb-2 block" htmlFor="name">Ваше имя:</label>
           <input type="text" id="name" className="p-2 block w-full border-2 border-gray-200 rounded-md" value={name} onChange={(e) => setName(e.target.value)} required />
         </div>
-        <div className="mb-4">
+        <div className="mb-4 relative">
           <label htmlFor="mobilePhone" className="block mb-2 font-medium">Мобильный телефон:</label>
+          <select
+            id="country"
+            name="country"
+            value={country}
+            onChange={(e) => handleChangeCountry(e.target.value)}
+            className="absolute max-w-xs top-10 left-1 py-1 px-1 bg-white"
+            required
+          >
+            <option value="KZ">{"\u{1F1F0}\u{1F1FF}"}</option>
+            <option value="KYR">{"\u{1F1F0}\u{1F1EC}"}</option>
+            <option value="UZB">{"\u{1F1FA}\u{1F1FF}"}</option>
+          </select>
           <InputMask
-            placeholder="+7(___)___-__-__"
-            mask="+7 (999) 999 99 99"
+            placeholder={phonePlaceholder}
+            mask={phoneMask}
             type="tel"
             id="mobilePhone"
             name="mobilePhone"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md pl-12"
             value={mobilePhone}
             onChange={(e) => setMobilePhone(e.target.value)}
             required
+            maskChar={null}
           />
         </div>
         <div className="mb-4">
@@ -80,8 +117,6 @@ const CustomerReviews = ({ productId }) => {
   // Состояние для списка отзывов и деталей продукта
   const [reviews, setReviews] = useState([]);
   const [productDetails, setProductDetails] = useState(null);
-  
-
 
   useEffect(() => {
     // Находим продукт по _id

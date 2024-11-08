@@ -16,7 +16,6 @@ const ProductDetails = () => {
    
     const selectedProduct = ProductsDetailItems.find(item => item._id === _id);
 
-    console.log(_id)
     if (selectedProduct) {
       setProductInfo(selectedProduct);
     }
