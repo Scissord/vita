@@ -8,12 +8,42 @@ const YearProduct = () => {
   const [fullName, setFullName] = useState("");
   const [mobilePhone, setMobilePhone] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false); // Состояние для отслеживания отправки заявки
-    
+
+  const [phoneMask, setPhoneMask] = useState('+7 (999) 999 99 99');
+  const [phonePlaceholder, setPhonePlaceholder] = useState('+7 (___) ___ __ __');
+  const [country, setCountry] = useState('KZ');
+
+  const handleChangeCountry = (val) => {
+    setMobilePhone('')
+    setCountry(val);
+    switch (val) {
+      case 'KZ': // Казахстан
+        setPhoneMask('+7 (999) 999 99 99');
+        setPhonePlaceholder('+7 (___) ___ __ __');
+        break;
+      case 'KYR': // Кыргызстан
+        setPhoneMask('+996 (999) 999 999');
+        setPhonePlaceholder('+996 (___) ___ ___');
+        break;
+      case 'UZB': // Узбекистан
+        setPhoneMask('+998 (99) 999 9999');
+        setPhonePlaceholder('+998 (__) ___ ____');
+        break;
+      default:
+        setPhoneMask('+7 (999) 999 99 99');
+        setPhonePlaceholder('+7(___)___-__-__');
+        break;
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    let apiUrl = `https://call-center1.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=3&token=1234`;
-        const domain = 'vita-balance.kz'
+    let apiUrl = `https://call-center1.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=18&token=1234`;
+    if(country === 'KYR') {
+      apiUrl = `https://callcenter-kyrgyzstan.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=18&token=1234`
+    }
+    const domain = 'vita-balance.kz'
     const formData = new FormData();
 
     formData.append('fio', fullName);
@@ -44,9 +74,9 @@ const YearProduct = () => {
   return (
     <div className="w-full h-90 mb-20 mt-5 md:bg-transparent relative font-titleFont mt-5 ">
       <Image
-          className="w-full h-full object-cover hidden md:inline-block"
-          imgSrc={productOfTheYear}
-        />
+        className="w-full h-full object-cover hidden md:inline-block"
+        imgSrc={productOfTheYear}
+      />
 
       <div className="w-full md:w-2/3 xl:w-1/2 h-80  absolute px-4 md:px-0 top-0 right-0 flex flex-col items-start gap-6 justify-center relativer" >
         <div className="bg-[#323136] p-10 rounded-lg shadow-lg md:w-3/4 lg:w-1/2 mx-auto relative m-7">
@@ -67,20 +97,33 @@ const YearProduct = () => {
                 className="border border-gray-300 shadow p-3 w-full rounded"
               />
             </div>
-            <div className="mb-10">
+            <div className="mb-10 relative">
               <label htmlFor="phone" className="block mb-2 font-bold text-white">Телефон</label>
+              <select
+                id="country"
+                name="country"
+                value={country}
+                onChange={(e) => handleChangeCountry(e.target.value)}
+                className="absolute max-w-xs top-10 left-1 py-1 px-1 bg-white"
+                required
+              >
+                <option value="KZ">{"\u{1F1F0}\u{1F1FF}"}</option>
+                <option value="KYR">{"\u{1F1F0}\u{1F1EC}"}</option>
+                <option value="UZB">{"\u{1F1FA}\u{1F1FF}"}</option>
+              </select>
               <InputMask
-                  placeholder="+7(___)___-__-__"
-                  mask="+7 (999) 999 99 99"
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  autocomplete="tel"
-                  className="border border-gray-300 shadow p-3 w-full rounded"
-                  value={mobilePhone}
-                  onChange={(e) => setMobilePhone(e.target.value)}
-                  required
-                />
+                placeholder={phonePlaceholder}
+                mask={phoneMask}
+                type="tel"
+                id="phone"
+                name="phone"
+                autocomplete="tel"
+                className="border border-gray-300 shadow p-3 w-full rounded pl-12"
+                value={mobilePhone}
+                onChange={(e) => setMobilePhone(e.target.value)}
+                required
+                maskChar={null}
+              />
             </div>
             <button type="submit" style={{ boxShadow: '0px 0px 9px 0px #fe3768' }} className="block w-full bg-[#fe3768] text-white font-bold p-4 rounded">Жду звонка</button>
           </form>
