@@ -260,7 +260,7 @@ reviewFour,
 
 export const paginationItems = [
   {
-            _id: "202690",
+            _id: "212257",
             img: newArrOne,
             productName: "ManBalance",
             price: "64800",
@@ -272,7 +272,7 @@ export const paginationItems = [
   },
 
   {
-    _id :"204116",
+    _id :"212255",
     img: newArrTwo,
     productName:"BodyBalance",
     price:"64800",
@@ -282,7 +282,7 @@ export const paginationItems = [
     des:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
   },
   {
-            _id:"204118",
+            _id:"212253",
             img:newArrThree,
             productName:"AlcoBalance",
             price:"64800",
@@ -291,7 +291,7 @@ export const paginationItems = [
             des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
   },
   {
-            _id:"202914",
+            _id:"212256",
             img:newArrFour,
             productName:"FlexBalance",
             price:"64800",
@@ -300,7 +300,7 @@ export const paginationItems = [
             des:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
   },
   {
-            _id:"204117",
+            _id:"212254",
             img:newArrFive,
             productName:"EroKing",
             price:"43200",
@@ -309,7 +309,7 @@ export const paginationItems = [
             des:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
   },
   {
-            _id:"204120",
+            _id:"212251",
             img:newArrSix,
             productName:"LibidoFortis",
             price:"54000",
@@ -318,7 +318,7 @@ export const paginationItems = [
             des:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
   },
   {
-            _id:"204119",
+            _id:"212252",
             img:newArrSeven,
             productName:"FemBalance",
             price:"64800",
@@ -337,7 +337,7 @@ export const paginationItems = [
 
 export const ProductsDetailItems = [
   {
-    _id: "202690",
+    _id: "212257",
     img: newArrOne,
     productName: "ManBalance",
     capsule: '/capsules/man.png', 
@@ -422,7 +422,7 @@ export const ProductsDetailItems = [
         ]
   },
   {
-    _id: "204116",
+    _id: "212255",
     img: newArrTwo,
     productName: "BodyBalance",
     capsule: '/capsules/flex.png', 
@@ -515,7 +515,7 @@ export const ProductsDetailItems = [
 
   },
   {
-    _id: "204118",
+    _id: "212253",
     img: newArrThree,
     productName: "AlcoBalance",
     capsule: '/capsules/alco.png', 
@@ -611,7 +611,7 @@ export const ProductsDetailItems = [
 
   },
   {
-    _id: "202914",
+    _id: "212256",
     img: newArrFour,
     productName: "Flex-Balance",
     capsule: '/capsules/flex.png', 
@@ -695,7 +695,7 @@ export const ProductsDetailItems = [
     
   },
   {
-    _id: "204117",
+    _id: "212254",
     img: newArrFive,
     productName: "EroKing",
     capsule: '/capsules/ero.png', 
@@ -782,7 +782,7 @@ export const ProductsDetailItems = [
         ]
   },
   {
-    _id: "204120",
+    _id: "212251",
     img: newArrSix,
     productName: "LibidoFortis",
     capsule: '/capsules/libido.png', 
@@ -861,7 +861,7 @@ export const ProductsDetailItems = [
         ]
   },
   {
-    _id: "204119",
+    _id: "212252",
     img: newArrSeven,
     productName: "FemBalance",
     capsule: '/capsules/flex.png', 

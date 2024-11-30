@@ -58,7 +58,7 @@ const NewArrivals = () => {
       <Slider {...settings}>
          <div className="px-2">
           <Product
-            _id= "202690"
+            _id= "212257"
             img={newArrOne}
             productName="ManBalance"
             price="64800"
@@ -70,7 +70,7 @@ const NewArrivals = () => {
         
         <div className="px-2">
           <Product
-            _id="204116"
+            _id="212255"
             img={newArrTwo}
             productName="BodyBalance"
             price="64800"
@@ -80,7 +80,7 @@ const NewArrivals = () => {
         </div>
         <div className="px-2">
           <Product
-            _id="204118"
+            _id="212253"
             img={newArrThree}
             productName="AlcoBalance"
             price="64800"
@@ -91,7 +91,7 @@ const NewArrivals = () => {
         </div>
         <div className="px-2">
           <Product
-            _id="202914"
+            _id="212256"
             img={newArrFour}
             productName="FlexBalance"
             price="64800"
@@ -104,7 +104,7 @@ const NewArrivals = () => {
         
         <div className="px-2">
           <Product
-            _id="204120"
+            _id="212251"
             img={newArrSix}
             productName="LibidoFortis"
             price="54000"
@@ -115,7 +115,7 @@ const NewArrivals = () => {
         </div>
          <div className="px-2">
           <Product
-            _id= "204117"
+            _id= "212254"
             img={newArrFive}
             productName="EroKing"
             price="43200"
@@ -127,7 +127,7 @@ const NewArrivals = () => {
 
         <div className="px-2">
           <Product
-            _id="204119"
+            _id="212252"
             img={newArrSeven}
             productName="FemBalance"
             price="64800"

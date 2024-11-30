@@ -14,7 +14,7 @@ const BestSellers = () => {
       <Heading heading="Хит продаж" />
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lgl:grid-cols-3 xl:grid-cols-4 gap-10">
         <Product
-          _id="202690"
+          _id="212257"
           img={bestSellerFour}
           productName="ManBalance"
           price="64800"
@@ -22,7 +22,7 @@ const BestSellers = () => {
           badge={false}
         />
         <Product
-          _id="202914"
+          _id="212256"
           img={bestSellerTwo}
           productName="Flex-Balance"
           price="64800"

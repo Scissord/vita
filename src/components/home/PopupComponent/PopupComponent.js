@@ -14,13 +14,13 @@ const PopupComponent = () => {
   const [country, setCountry] = useState('KZ');
 
   const products = [
-    { _id: '202690', name: 'Manbalance' },
-    { _id: '204116', name: 'BodyBalance' },
-    { _id: '202914', name: 'Flex-Balance' },
-    { _id: '204117', name: 'EroKing' },
-    { _id: '204118', name: 'AlcoBalance' },
-    { _id: '204119', name: 'FemBalance' },
-    { _id: '204120', name: 'LibidoFortis' },
+    { _id: '212257', name: 'Manbalance' },
+    { _id: '212255', name: 'BodyBalance' },
+    { _id: '212256', name: 'Flex-Balance' },
+    { _id: '212254', name: 'EroKing' },
+    { _id: '212253', name: 'AlcoBalance' },
+    { _id: '212252', name: 'FemBalance' },
+    { _id: '212251', name: 'LibidoFortis' },
   ];
 
   const handleProductChange = (selectedOptions) => {
