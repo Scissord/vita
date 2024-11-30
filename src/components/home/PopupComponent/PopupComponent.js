@@ -61,44 +61,44 @@ const PopupComponent = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // let apiUrl = `https://call-center1.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=18&token=1234`;
-    // if(country === 'KYR') {
-    //   apiUrl = `https://callcenter-kyrgyzstan.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=18&token=1234`
-    // }
-    // const domain = 'vita-balance.kz'
-    // const formData = new FormData();
+    let apiUrl = `https://talkcall-kz.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=18&token=1234`;
+    if(country === 'KYR') {
+      apiUrl = `https://callcenter-kyrgyzstan.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=18&token=1234`
+    }
+    const domain = 'vita-balance.kz'
+    const formData = new FormData();
 
-    // productIDs.forEach((product, index) => {
-    //   formData.append(`goods[${index}][goodID]`, product._id);
-    //   formData.append(`goods[${index}][quantity]`, 1);
-    //   formData.append(`goods[${index}][price]`, 1200);
-    // });
+    productIDs.forEach((product, index) => {
+      formData.append(`goods[${index}][goodID]`, product._id);
+      formData.append(`goods[${index}][quantity]`, 1);
+      formData.append(`goods[${index}][price]`, 1200);
+    });
 
-    // formData.append('fio', fullName);
-    // formData.append('domain', domain);
-    // formData.append('phone', mobilePhone);
+    formData.append('fio', fullName);
+    formData.append('domain', domain);
+    formData.append('phone', mobilePhone);
 
-    // try {
-    //   const response = await fetch(
-    //     apiUrl,
-    //     {
-    //       method: "POST",
-    //       body: formData,
-    //     }
-    //   );
+    try {
+      const response = await fetch(
+        apiUrl,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
-    //   if (response.ok) {
-    //     const responseData = await response.json();
-    //     console.log("Order placed successfully. Order ID:", responseData);
-    //     console.log(apiUrl);
-    //   } else {
-    //     console.error("Failed to place the order. HTTP Status:", response.status);
-    //     console.log(apiUrl);
-    //   }
-    // } catch (error) {
-    //   console.error("Error occurred while placing the order:", error);
-    //   console.log(apiUrl);
-    // }
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log("Order placed successfully. Order ID:", responseData);
+        console.log(apiUrl);
+      } else {
+        console.error("Failed to place the order. HTTP Status:", response.status);
+        console.log(apiUrl);
+      }
+    } catch (error) {
+      console.error("Error occurred while placing the order:", error);
+      console.log(apiUrl);
+    }
     setIsSubmitted(true);
   };
     

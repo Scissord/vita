@@ -58,50 +58,50 @@ const Payment = () => {
     // 18 - 1234
     // 1 - 6568
 
-    // let apiUrl = `https://call-center1.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=18&token=1234`;
-    // if(country === 'KYR') {
-    //   apiUrl = `https://callcenter-kyrgyzstan.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=18&token=1234`
-    // }
-    // const domain = 'vita-balance.kz';
-    // const formData = new FormData();
-    // let price = '1440';
-    // if(country === 'KYR') {
-    //   price = '170'
-    // };
+    let apiUrl = `https://talkcall-kz.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=18&token=1234`;
+    if(country === 'KYR') {
+      apiUrl = `https://callcenter-kyrgyzstan.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=18&token=1234`
+    }
+    const domain = 'vita-balance.kz';
+    const formData = new FormData();
+    let price = '1440';
+    if(country === 'KYR') {
+      price = '170'
+    };
 
-    // products.forEach((product, index) => {
-    //   const price = parseFloat(product.price) + parseFloat(discount);
-    //   formData.append(`goods[${index}][goodID]`, product._id);
-    //   formData.append(`goods[${index}][quantity]`, product.quantity);
-    //   formData.append(`goods[${index}][price]`, price); 
-    // });
+    products.forEach((product, index) => {
+      const price = parseFloat(product.price) + parseFloat(discount);
+      formData.append(`goods[${index}][goodID]`, product._id);
+      formData.append(`goods[${index}][quantity]`, product.quantity);
+      formData.append(`goods[${index}][price]`, price); 
+    });
     
-    // formData.append('additional9', additional9 ? 'KASPI-KREDIT' : '');
-    // formData.append('fio', fullName);
-    // formData.append('domain', domain);
-    // formData.append('price', price);
-    // formData.append('phone', mobilePhone);
-    // formData.append('address', streetAddress);
-    // formData.append('city', selectedCity);
-    // formData.append('postIndex', postalCode);
+    formData.append('additional9', additional9 ? 'KASPI-KREDIT' : '');
+    formData.append('fio', fullName);
+    formData.append('domain', domain);
+    formData.append('price', price);
+    formData.append('phone', mobilePhone);
+    formData.append('address', streetAddress);
+    formData.append('city', selectedCity);
+    formData.append('postIndex', postalCode);
 
-    // try {
-    //   const response = await fetch(apiUrl, {method: "POST", body: formData});
+    try {
+      const response = await fetch(apiUrl, {method: "POST", body: formData});
 
-    //   if (response.ok) {
-    //     const responseData = await response.json();
-    //     console.log("Order placed successfully. Order ID:", responseData.orderId);
-    //     setSubmitSuccess(true); // Устанавливаем состояние успешной отправки в true
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log("Order placed successfully. Order ID:", responseData.orderId);
+        setSubmitSuccess(true); // Устанавливаем состояние успешной отправки в true
         
 
-    //   } else {
-    //     console.error("Failed to place the order. HTTP Status:", response.status);
-    //     setSubmitSuccess(true); // Устанавливаем состояние успешной отправки в true
-    //   }
-    // } catch (error) {
-    //   console.error("Error occurred while placing the order:", error);
+      } else {
+        console.error("Failed to place the order. HTTP Status:", response.status);
+        setSubmitSuccess(true); // Устанавливаем состояние успешной отправки в true
+      }
+    } catch (error) {
+      console.error("Error occurred while placing the order:", error);
       setSubmitSuccess(true); // Устанавливаем состояние успешной отправки в true
-    // }
+    }
   };
 
   return (

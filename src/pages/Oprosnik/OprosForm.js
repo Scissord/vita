@@ -44,35 +44,35 @@ const OprosForm = () => {
     }
     
     // Создаем formData
-    // const formData = new FormData();
-    // formData.append('fio', fullName);
-    // formData.append('phone', mobilePhone);
-    // formData.append('domain', 'vita-balance.kz');
+    const formData = new FormData();
+    formData.append('fio', fullName);
+    formData.append('phone', mobilePhone);
+    formData.append('domain', 'vita-balance.kz');
     
-    // // Добавляем информацию о товарах в formData
-    // savedResult._id.forEach((productId, index) => {
-    //   formData.append(`goods[${index}][goodID]`, productId);
-    //   formData.append(`goods[${index}][quantity]`, 1);
-    //   formData.append(`goods[${index}][price]`, 1200); // Примерная цена, измените на актуальную
-    // });
+    // Добавляем информацию о товарах в formData
+    savedResult._id.forEach((productId, index) => {
+      formData.append(`goods[${index}][goodID]`, productId);
+      formData.append(`goods[${index}][quantity]`, 1);
+      formData.append(`goods[${index}][price]`, 1200); // Примерная цена, измените на актуальную
+    });
 
-    // // Отправляем formData
-    // let apiUrl = `https://call-center1.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=18&token=1234`;
-    // if(country === 'KYR') {
-    //   apiUrl = `https://callcenter-kyrgyzstan.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=18&token=1234`
-    // }
-    // try {
-    //   const response = await fetch(apiUrl, { method: "POST", body: formData });
-    //   if (response.ok) {
-    //     const responseData = await response.json();
-    //     console.log("Order placed successfully. Order ID:", responseData);
+    // Отправляем formData
+    let apiUrl = `https://talkcall-kz.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=18&token=1234`;
+    if(country === 'KYR') {
+      apiUrl = `https://callcenter-kyrgyzstan.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=18&token=1234`
+    }
+    try {
+      const response = await fetch(apiUrl, { method: "POST", body: formData });
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log("Order placed successfully. Order ID:", responseData);
         setIsSubmitted(true);
-    //   } else {
-    //     console.error("Failed to place the order. HTTP Status:", response.status);
-    //   }
-    // } catch (error) {
-    //   console.error("Error occurred while placing the order:", error);
-    // }
+      } else {
+        console.error("Failed to place the order. HTTP Status:", response.status);
+      }
+    } catch (error) {
+      console.error("Error occurred while placing the order:", error);
+    }
   };
 
   return (
