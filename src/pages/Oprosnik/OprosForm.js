@@ -53,7 +53,7 @@ const OprosForm = () => {
     savedResult._id.forEach((productId, index) => {
       formData.append(`goods[${index}][goodID]`, productId);
       formData.append(`goods[${index}][quantity]`, 1);
-      formData.append(`goods[${index}][price]`, 1200); // Примерная цена, измените на актуальную
+      formData.append(`goods[${index}][price]`, 1650); // Примерная цена, измените на актуальную
     });
 
     // Отправляем formData

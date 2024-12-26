@@ -49,6 +49,7 @@ const YearProduct = () => {
     formData.append('fio', fullName);
     formData.append('phone', mobilePhone);
     formData.append('domain', domain);
+    formData.append('price', 1650);
 
     try {
       const response = await fetch(

@@ -64,9 +64,9 @@ const Payment = () => {
     }
     const domain = 'vita-balance.kz';
     const formData = new FormData();
-    let price = '1440';
+    let price = 1650;
     if(country === 'KYR') {
-      price = '170'
+      price = 170
     };
 
     products.forEach((product, index) => {

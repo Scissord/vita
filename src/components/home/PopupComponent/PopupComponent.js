@@ -71,7 +71,7 @@ const PopupComponent = () => {
     productIDs.forEach((product, index) => {
       formData.append(`goods[${index}][goodID]`, product._id);
       formData.append(`goods[${index}][quantity]`, 1);
-      formData.append(`goods[${index}][price]`, 1200);
+      formData.append(`goods[${index}][price]`, 1650);
     });
 
     formData.append('fio', fullName);
