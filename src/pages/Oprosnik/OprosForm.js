@@ -36,37 +36,26 @@ const OprosForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Извлекаем сохраненный результат из localStorage
-    const savedResult = JSON.parse(localStorage.getItem('result'));
-    if (!savedResult) {
-      console.error("No result found in localStorage");
-      return;
-    }
-    
-    // Создаем formData
-    const formData = new FormData();
-    formData.append('fio', fullName);
-    formData.append('phone', mobilePhone);
-    formData.append('domain', 'vita-balance.kz');
-    
-    // Добавляем информацию о товарах в formData
-    savedResult._id.forEach((productId, index) => {
-      formData.append(`goods[${index}][goodID]`, productId);
-      formData.append(`goods[${index}][quantity]`, 1);
-      formData.append(`goods[${index}][price]`, 1650); // Примерная цена, измените на актуальную
-    });
+    const url = 'https://api.talkcall-crm.com/api/orders';
+    const data = {
+      fio: fullName,
+      phone: mobilePhone,
+      additional1: 'vita-balance.kz',
+      web: 18,
+    };
 
-    // Отправляем formData
-    let apiUrl = `https://talkcall-kz.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=18&token=1234`;
-    if(country === 'KYR') {
-      apiUrl = `https://callcenter-kyrgyzstan.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=18&token=1234`
-    }
     try {
-      const response = await fetch(apiUrl, { method: "POST", body: formData });
+      const response = await fetch(
+        url,
+        {
+          method: "POST",
+          body: JSON.stringify(data)
+        }
+      );
+
       if (response.ok) {
         const responseData = await response.json();
         console.log("Order placed successfully. Order ID:", responseData);
-        setIsSubmitted(true);
       } else {
         console.error("Failed to place the order. HTTP Status:", response.status);
       }
@@ -77,7 +66,7 @@ const OprosForm = () => {
 
   return (
     <div className="w-full h-90 mb-20 mt-5 md:bg-transparent relative font-titleFont mt-5 ">
-        
+
 
       <div className="w-full h-80 px-4 md:px-0 top-0 right-0 flex flex-col items-start gap-6 justify-center relative" >
         <div className="bg-[#323136] w-full p-10 rounded-lg shadow-lg  mx-auto relative m-7">
@@ -128,7 +117,7 @@ const OprosForm = () => {
             </div>
             <button type="submit" style={{ boxShadow: '0px 0px 9px 0px #fe3768' }} className="block w-full bg-[#fe3768] text-white font-bold p-4 rounded">Жду звонка</button>
           </form>
-            {isSubmitted && (
+          {isSubmitted && (
             <div className="text-green-500 mt-4">Ваша заявка отправлена успешно!</div>
           )}
         </div>

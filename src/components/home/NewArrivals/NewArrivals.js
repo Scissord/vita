@@ -17,63 +17,63 @@ import SamplePrevArrow from "./SamplePrevArrow";
 
 const NewArrivals = () => {
   const settings = {
-  infinite: true,
-  speed: 500,
-  slidesToShow: 4,
-  slidesToScroll: 1,
-  autoplay: true, // Добавляем автоматическое переключение
-  autoplaySpeed: 3000, // Устанавливаем интервал автопереключения в миллисекундах
-  nextArrow: <SampleNextArrow />,
-  prevArrow: <SamplePrevArrow />,
-  responsive: [
-    {
-      breakpoint: 1025,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        infinite: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: true, // Добавляем автоматическое переключение
+    autoplaySpeed: 3000, // Устанавливаем интервал автопереключения в миллисекундах
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1025,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: true,
+        },
       },
-    },
-    {
-      breakpoint: 769,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2,
-        infinite: true,
+      {
+        breakpoint: 769,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          infinite: true,
+        },
       },
-    },
-    {
-      breakpoint: 480,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 1,
-        infinite: true,
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+        },
       },
-    },
-  ],
-};
+    ],
+  };
   return (
     <div className="w-full pb-16">
       <Heading heading="Продукты" />
       <Slider {...settings}>
-         <div className="px-2">
+        <div className="px-2">
           <Product
-            _id= "212257"
+            _id="212257"
             img={newArrOne}
             productName="ManBalance"
-            price="64800"
+            price="74250"
             color="средство для мужчин"
             badge={true}
           />
 
         </div>
-        
+
         <div className="px-2">
           <Product
             _id="212255"
             img={newArrTwo}
             productName="BodyBalance"
-            price="64800"
+            price="74250"
             color="средство для похудения"
             badge={true}
           />
@@ -83,10 +83,10 @@ const NewArrivals = () => {
             _id="212253"
             img={newArrThree}
             productName="AlcoBalance"
-            price="64800"
+            price="74250"
             color="средство от алкозависимости"
             badge={true}
-           
+
           />
         </div>
         <div className="px-2">
@@ -94,31 +94,31 @@ const NewArrivals = () => {
             _id="212256"
             img={newArrFour}
             productName="FlexBalance"
-            price="64800"
+            price="74250"
             color="средство от болей в суставах"
             badge={true}
-           
+
           />
         </div>
 
-        
+
         <div className="px-2">
           <Product
             _id="212251"
             img={newArrSix}
             productName="LibidoFortis"
-            price="54000"
+            price="74250"
             color="средство для мужчин"
             badge={true}
-        
+
           />
         </div>
-         <div className="px-2">
+        <div className="px-2">
           <Product
-            _id= "212254"
+            _id="212254"
             img={newArrFive}
             productName="EroKing"
-            price="43200"
+            price="74250"
             color="средство для мужчин"
             badge={true}
           />
@@ -130,12 +130,12 @@ const NewArrivals = () => {
             _id="212252"
             img={newArrSeven}
             productName="FemBalance"
-            price="64800"
+            price="74250"
             color="средство для женщин"
             badge={true}
           />
         </div>
-    
+
       </Slider>
     </div>
   );

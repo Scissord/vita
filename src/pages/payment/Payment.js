@@ -55,53 +55,34 @@ const Payment = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // 18 - 1234
-    // 1 - 6568
-
-    let apiUrl = `https://talkcall-kz.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=18&token=1234`;
-    if(country === 'KYR') {
-      apiUrl = `https://callcenter-kyrgyzstan.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=18&token=1234`
-    }
-    const domain = 'vita-balance.kz';
-    const formData = new FormData();
-    let price = 1650;
-    if(country === 'KYR') {
-      price = 170
+    const url = 'https://api.talkcall-crm.com/api/orders';
+    const data = {
+      fio: fullName,
+      phone: mobilePhone,
+      additional1: 'vita-balance.kz',
+      web: 18,
     };
 
-    products.forEach((product, index) => {
-      const price = parseFloat(product.price) + parseFloat(discount);
-      formData.append(`goods[${index}][goodID]`, product._id);
-      formData.append(`goods[${index}][quantity]`, product.quantity);
-      formData.append(`goods[${index}][price]`, price); 
-    });
-    
-    formData.append('additional9', additional9 ? 'KASPI-KREDIT' : '');
-    formData.append('fio', fullName);
-    formData.append('domain', domain);
-    formData.append('price', price);
-    formData.append('phone', mobilePhone);
-    formData.append('address', streetAddress);
-    formData.append('city', selectedCity);
-    formData.append('postIndex', postalCode);
-
     try {
-      const response = await fetch(apiUrl, {method: "POST", body: formData});
+      const response = await fetch(
+        url,
+        {
+          method: "POST",
+          body: JSON.stringify(data)
+        }
+      );
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log("Order placed successfully. Order ID:", responseData.orderId);
-        setSubmitSuccess(true); // Устанавливаем состояние успешной отправки в true
-        
-
+        console.log("Order placed successfully. Order ID:", responseData);
       } else {
         console.error("Failed to place the order. HTTP Status:", response.status);
-        setSubmitSuccess(true); // Устанавливаем состояние успешной отправки в true
       }
     } catch (error) {
       console.error("Error occurred while placing the order:", error);
-      setSubmitSuccess(true); // Устанавливаем состояние успешной отправки в true
     }
+
+    setSubmitSuccess(true); // Устанавливаем состояние успешной отправки в true
   };
 
   return (
@@ -118,7 +99,7 @@ const Payment = () => {
                   id="nombre-completo"
                   name="nombre-completo"
                   className="w-full px-4 py-2 border border-gray-300 rounded-md"
-                  value={fullName} 
+                  value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   required
                 />
@@ -162,7 +143,7 @@ const Payment = () => {
                   required
                 />
               </div>
-              
+
               <div className="mb-2">
                 <label htmlFor="pais" className="block mb-2 font-medium">Город:</label>
                 <select
@@ -246,7 +227,7 @@ const Payment = () => {
                   <option value="Other">Другой город</option>
                 </select>
               </div>
-              
+
               {selectedCity === "Other" && (
                 <div>
                   <label htmlFor="postal-code" className="block mb-2 font-medium">Укажите регион доставки (адрес):</label>
@@ -260,26 +241,26 @@ const Payment = () => {
                   />
                 </div>
               )}
-                
-              <div className="flex items-center mt-2">
-     <input
-          type="checkbox"
-          id="creditCheckbox"
-          name="creditCheckbox"
-          className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-          onChange={handleCreditCheckboxChange} // Добавляем обработчик изменения состояния чекбокса
-        />
-        <label htmlFor="creditCheckbox" className="ml-2 block text-sm text-gray-900">
-          Оформить в кредит
-        </label>
-</div>
 
-              
+              <div className="flex items-center mt-2">
+                <input
+                  type="checkbox"
+                  id="creditCheckbox"
+                  name="creditCheckbox"
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  onChange={handleCreditCheckboxChange} // Добавляем обработчик изменения состояния чекбокса
+                />
+                <label htmlFor="creditCheckbox" className="ml-2 block text-sm text-gray-900">
+                  Оформить в кредит
+                </label>
+              </div>
+
+
               <div className="col-span-2 mt-5">
                 <button type="submit" className="px-2 py-2 bg-blue-500 text-white font-bold rounded-md">
                   Оформить заказ
                 </button>
-               
+
               </div>
             </div>
             {submitSuccess && ( // Показываем сообщение об успешной отправке, если submitSuccess true

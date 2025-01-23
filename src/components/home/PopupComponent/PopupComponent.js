@@ -61,56 +61,56 @@ const PopupComponent = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    let apiUrl = `https://talkcall-kz.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=18&token=1234`;
-    if(country === 'KYR') {
-      apiUrl = `https://callcenter-kyrgyzstan.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=18&token=1234`
-    }
-    const domain = 'vita-balance.kz'
-    const formData = new FormData();
+    const url = 'https://api.talkcall-crm.com/api/orders';
 
-    productIDs.forEach((product, index) => {
-      formData.append(`goods[${index}][goodID]`, product._id);
-      formData.append(`goods[${index}][quantity]`, 1);
-      formData.append(`goods[${index}][price]`, 1650);
-    });
+    const data = {
+      fio: fullName,
+      phone: mobilePhone,
+      additional1: 'vita-balance.kz',
+      web: 18,
+    };
 
-    formData.append('fio', fullName);
-    formData.append('domain', domain);
-    formData.append('phone', mobilePhone);
+    if (productIDs && productIDs.length > 0) {
+      data.items = productIDs.map((product) => ({
+        product_id: product._id,
+        quantity: 1,
+        price: 1650,
+      }));
+    };
 
     try {
       const response = await fetch(
-        apiUrl,
+        url,
         {
           method: "POST",
-          body: formData,
+          body: JSON.stringify(data)
         }
       );
-
       if (response.ok) {
         const responseData = await response.json();
         console.log("Order placed successfully. Order ID:", responseData);
-        console.log(apiUrl);
+        console.log(url);
       } else {
         console.error("Failed to place the order. HTTP Status:", response.status);
-        console.log(apiUrl);
+        console.log(url);
       }
     } catch (error) {
       console.error("Error occurred while placing the order:", error);
-      console.log(apiUrl);
-    }
+      console.log(url);
+    };
+
     setIsSubmitted(true);
   };
-    
+
   const togglePopup = () => {
     setIsOpen(!isOpen);
   };
 
-   return (
+  return (
     <div>
       {/* Кнопка для открытия попапа */}
       <button onClick={togglePopup} className="block w-full bg-[#077931] text-white text-14 p-2 rounded-[22px]">
-        <img style={{ width: '25px' }} src="https://img.icons8.com/ios-filled/50/FFFFFF/ringer-volume.png" alt="ringer-volume"/>
+        <img style={{ width: '25px' }} src="https://img.icons8.com/ios-filled/50/FFFFFF/ringer-volume.png" alt="ringer-volume" />
       </button>
 
       {/* Попап */}
@@ -176,10 +176,10 @@ const PopupComponent = () => {
               {/* Меню выбора продукта */}
               {isMenuOpen && (
                 <div className="relative">
-                  <select 
-                    multiple={true} 
-                    value={productIDs.map(p => p._id)} 
-                    onChange={(e) => handleProductChange(e.target.selectedOptions)} 
+                  <select
+                    multiple={true}
+                    value={productIDs.map(p => p._id)}
+                    onChange={(e) => handleProductChange(e.target.selectedOptions)}
                     className="border border-gray-300 shadow p-3 w-full rounded"
                   >
                     {products.map((product) => (
@@ -207,4 +207,4 @@ const PopupComponent = () => {
 export default PopupComponent;
 
 
- 
+

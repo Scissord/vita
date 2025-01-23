@@ -39,24 +39,20 @@ const YearProduct = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    let apiUrl = `https://talkcall-kz.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=18&token=1234`;
-    if(country === 'KYR') {
-      apiUrl = `https://callcenter-kyrgyzstan.leadvertex.ru/api/webmaster/v2/addOrder.html?webmasterID=18&token=1234`
-    }
-    const domain = 'vita-balance.kz'
-    const formData = new FormData();
-
-    formData.append('fio', fullName);
-    formData.append('phone', mobilePhone);
-    formData.append('domain', domain);
-    formData.append('price', 1650);
+    const url = 'https://api.talkcall-crm.com/api/orders';
+    const data = {
+      fio: fullName,
+      phone: mobilePhone,
+      additional1: 'vita-balance.kz',
+      web: 18,
+    };
 
     try {
       const response = await fetch(
-        apiUrl,
+        url,
         {
           method: "POST",
-          body: formData,
+          body: JSON.stringify(data)
         }
       );
 
@@ -69,6 +65,7 @@ const YearProduct = () => {
     } catch (error) {
       console.error("Error occurred while placing the order:", error);
     }
+
     setIsSubmitted(true)
   };
 
@@ -128,7 +125,7 @@ const YearProduct = () => {
             </div>
             <button type="submit" style={{ boxShadow: '0px 0px 9px 0px #fe3768' }} className="block w-full bg-[#fe3768] text-white font-bold p-4 rounded">Жду звонка</button>
           </form>
-            {isSubmitted && (
+          {isSubmitted && (
             <div className="text-green-500 mt-4">Ваша заявка отправлена успешно!</div>
           )}
         </div>

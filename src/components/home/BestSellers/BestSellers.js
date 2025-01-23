@@ -17,7 +17,7 @@ const BestSellers = () => {
           _id="212257"
           img={bestSellerFour}
           productName="ManBalance"
-          price="64800"
+          price="74250"
           color="Здоровье мужчин"
           badge={false}
         />
@@ -25,12 +25,12 @@ const BestSellers = () => {
           _id="212256"
           img={bestSellerTwo}
           productName="Flex-Balance"
-          price="64800"
+          price="74250"
           color="Здоровье суставов"
           badge={false}
-    
+
         />
-        
+
       </div>
     </div>
   );
