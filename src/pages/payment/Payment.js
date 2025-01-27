@@ -55,12 +55,15 @@ const Payment = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    console.log(products[0]);
+
     const url = 'https://sendio.pw/create_order';
     const data = {
       user_name: fullName,
       user_phone: mobilePhone,
       domain: 'vita-balance.kz',
       web: '18',
+      goodID: products[0]._id
     };
 
     try {

@@ -42,6 +42,7 @@ const OprosForm = () => {
       user_phone: mobilePhone,
       domain: 'vita-balance.kz',
       web: '18',
+      goodID: '212257',
     };
 
     try {
