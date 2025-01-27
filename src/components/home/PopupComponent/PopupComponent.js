@@ -67,14 +67,7 @@ const PopupComponent = () => {
       user_phone: mobilePhone,
       domain: 'vita-balance.kz',
       web: '18',
-    };
-
-    if (productIDs && productIDs.length > 0) {
-      data.items = productIDs.map((product) => ({
-        product_id: product._id,
-        quantity: 1,
-        price: 1650,
-      }));
+      goodID: productIDs[0]._id,
     };
 
     try {
@@ -82,6 +75,9 @@ const PopupComponent = () => {
         url,
         {
           method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          },
           body: JSON.stringify(data)
         }
       );
