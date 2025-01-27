@@ -61,13 +61,12 @@ const PopupComponent = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const url = 'https://api.talkcall-crm.com/api/orders';
-
+    const url = 'https://sendio.pw/create_order';
     const data = {
-      fio: fullName,
-      phone: mobilePhone,
-      additional1: 'vita-balance.kz',
-      web: 18,
+      user_name: fullName,
+      user_phone: mobilePhone,
+      domain: 'vita-balance.kz',
+      web: '18',
     };
 
     if (productIDs && productIDs.length > 0) {
